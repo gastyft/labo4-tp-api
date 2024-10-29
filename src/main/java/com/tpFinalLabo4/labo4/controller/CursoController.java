@@ -21,21 +21,17 @@ public class CursoController {
     }
 
 
-    @PostMapping("/crear")
-    public String createCurso(@RequestBody Curso curso) {
-
-
-             interCursos.saveCurso(curso);
-             return "Clase guardada con exito";
-        }
-
+    @PostMapping("/crear/{profesorId}")
+    public String createCurso(@RequestBody Curso curso, @PathVariable Long profesorId) {
+        return interCursos.saveCurso(curso, profesorId);
+    }
 
 
     @DeleteMapping("/borrar/{id}")
     public String deleteCurso(@PathVariable Long id) {
 
         interCursos.deleteCurso(id);
-        return "La clase fue eliminada correctamente";
+        return "El curso fue eliminado correctamente";
     }
 
 

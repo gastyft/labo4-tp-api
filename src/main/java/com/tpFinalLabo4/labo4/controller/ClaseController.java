@@ -20,12 +20,10 @@ public class ClaseController {
     }
 
 
-    @PostMapping("/crear")   //TODO Preguntar si ya recibiendo el objeto de tipo clase desde el front ya alcanza
-    public String createClase(@RequestBody Clase clase){
-        interClase.saveClase(clase);
-        return "La clase fue guardado correctamente";
+    @PostMapping("/crear/{cursoId}")
+    public String createClase(@RequestBody Clase clase, @PathVariable Long cursoId) {
+        return interClase.saveClase(clase, cursoId);
     }
-
     @DeleteMapping("/borrar/{id}")
     public String deleteClase(@PathVariable Long id){
 

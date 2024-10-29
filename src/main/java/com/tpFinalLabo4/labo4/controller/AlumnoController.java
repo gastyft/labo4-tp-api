@@ -24,13 +24,13 @@ public class AlumnoController {
     @PostMapping("/crear")
     public String createClase(@RequestBody Alumno alumno) {
         interAlumno.saveAlumno(alumno);
-        return "La clase fue guardado correctamente";
+        return "El alumno fue guardado correctamente";
     }
 
     @DeleteMapping("/borrar/{id}") //TODO Preguntar si meto exceptions y que sugerencia Ver tema de listas en models!
     public String deleteClase(@PathVariable Long id) {
         interAlumno.deleteAlumno(id);
-        return "La clase fue eliminada correctamente";
+        return "El alumno fue eliminado correctamente";
     }
 
 

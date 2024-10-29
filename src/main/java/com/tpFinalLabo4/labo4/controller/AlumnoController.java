@@ -56,7 +56,10 @@ public class AlumnoController {
     @GetMapping("/traer/{id}")
     public Alumno findById(@PathVariable Long id) {
         return interAlumno.findById(id);
-
+    }
+    @DeleteMapping("/desinscribir/{alumnoId}/{cursoId}")
+    public String desinscribirAlumnoDeCurso(@PathVariable Long alumnoId, @PathVariable Long cursoId) {
+        return interAlumno.desinscribirAlumnoDeCurso(alumnoId, cursoId);
     }
 }
 

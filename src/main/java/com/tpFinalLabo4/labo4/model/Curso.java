@@ -10,8 +10,10 @@ import jakarta.validation.constraints.Max;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
@@ -33,7 +35,12 @@ public class Curso {
 
 
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Clase> clases;
+    private Set<Clase> clases;
+
+
+    @ManyToMany(mappedBy = "cursosInscritos")
+    @JsonIgnore
+    private Set<Alumno> alumnosInscritos = new HashSet<>();
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

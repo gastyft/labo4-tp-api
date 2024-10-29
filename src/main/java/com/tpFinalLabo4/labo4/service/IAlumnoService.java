@@ -14,5 +14,8 @@ public interface IAlumnoService {
     public void deleteAlumno(Long id);
 
     public Alumno findById(Long id);
-    public void inscribirAlumno(Alumno alumno, Curso curso);
+
+    public String inscribirAlumnoEnCurso(Long alumnoId, Long cursoId);
+
+    public String desinscribirAlumnoDeCurso(Long alumnoId, Long cursoId);
 }

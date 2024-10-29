@@ -14,4 +14,5 @@ public interface ICursoService {
     public void deleteCurso(Long id);
 
     public Curso findById (Long id);
+    String saveCurso(Curso curso, Long profesorId);;
 }

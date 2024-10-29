@@ -26,13 +26,13 @@ public class ProfesorController {
     @PostMapping("/crear")
     public String createClase(@RequestBody Profesor profesor) {
         interProfesor.saveProfesor(profesor);
-        return "La clase fue guardado correctamente";
+        return "El profesor fue guardado correctamente";
     }
 
     @DeleteMapping("/borrar/{id}")
     public String deleteClase(@PathVariable Long id) {
         interProfesor.deleteProfesor(id);
-        return "La clase fue eliminada correctamente";
+        return "El profesor fue eliminada correctamente";
     }
 
 

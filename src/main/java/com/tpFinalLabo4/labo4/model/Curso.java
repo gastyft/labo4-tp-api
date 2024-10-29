@@ -3,6 +3,7 @@ package com.tpFinalLabo4.labo4.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
@@ -25,13 +26,14 @@ public class Curso {
     private String titulo;
     private String descripcion;
 
-    /*@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "profesor_id")
+    @JsonIgnore
     private Profesor profesor;
-*/
-    @ElementCollection
-    private List<Long> claseList;
 
+
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Clase> clases;
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

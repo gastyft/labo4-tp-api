@@ -13,5 +13,7 @@ public interface IClaseService {
 
     public Clase findById(Long id);
 
+    String saveClase(Clase clase, Long cursoId);
+
 }
 

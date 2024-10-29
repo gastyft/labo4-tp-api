@@ -4,6 +4,7 @@ package com.tpFinalLabo4.labo4.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -25,4 +26,8 @@ public class Clase {
     private String thumbnailUrl;
     boolean isVisto=false;
 
+    @ManyToOne
+    @JoinColumn(name = "curso_id")
+    @JsonIgnore
+    private Curso curso;
 }

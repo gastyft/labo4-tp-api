@@ -15,7 +15,7 @@ public class CursoController {
     @Autowired
     private ICursoService interCursos;
 
-    @GetMapping("/get-cursos-list")
+    @GetMapping("/get-curso-list")
     public List<Curso> getCursos() {
         return interCursos.getCurso();
     }

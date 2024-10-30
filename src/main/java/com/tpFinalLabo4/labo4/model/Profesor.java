@@ -29,6 +29,7 @@ public class Profesor {
     @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, orphanRemoval = true)
 
     private Set<Curso> cursosQueDicta = new HashSet<>();
+
     //private List<Long> cursosQueDicta;
     // Usar SEts para las listas que no se repitan por ser unicas
     // e ignorar cursos para que en profesor, y alumno ya se traiga los datos directamente
@@ -38,7 +39,8 @@ public class Profesor {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Profesor)) return false;
-        Profesor profesor = (Profesor) o;
+        Profesor profesor;
+        profesor = (Profesor) o;
         return Objects.equals(id, profesor.id);
     }
 

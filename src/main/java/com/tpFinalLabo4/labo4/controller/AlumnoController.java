@@ -34,7 +34,7 @@ public class AlumnoController {
     }
 
 
-    @PutMapping("/editar/{id}") //puede ser con el ID "/personas/editar/{id}"
+    @PutMapping("/editar/{id}")
     public Alumno editClase(@PathVariable Long id,
                            @RequestParam("nombre") String nuevoNombre,
                            @RequestParam("apellido") String nuevoApellido,
@@ -60,6 +60,11 @@ public class AlumnoController {
     @DeleteMapping("/desinscribir/{alumnoId}/{cursoId}")
     public String desinscribirAlumnoDeCurso(@PathVariable Long alumnoId, @PathVariable Long cursoId) {
         return interAlumno.desinscribirAlumnoDeCurso(alumnoId, cursoId);
+    }
+
+    @PostMapping("/inscribir/{alumnoId}/{cursoId}")
+    public String inscribirAlumnoEnCurso(@PathVariable Long alumnoId, @PathVariable Long cursoId) {
+        return interAlumno.inscribirAlumnoEnCurso(alumnoId, cursoId);
     }
 }
 

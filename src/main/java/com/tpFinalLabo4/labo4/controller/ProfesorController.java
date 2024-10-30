@@ -60,8 +60,5 @@ public class ProfesorController {
         return interProfesor.findById(id);
     }
 
-
-
-
-
+    
 }

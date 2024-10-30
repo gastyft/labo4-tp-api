@@ -67,11 +67,11 @@ public class AlumnoService implements  IAlumnoService{
         // Elimina el curso de la lista de cursos inscriptos del alumno
         alumno.getCursosInscritos().remove(curso);
 
-        // Guarda la relación en la base de datos
+
         alumnoRepository.save(alumno);
 
         // Si es bidireccional, también se deberia eliminar el alumno de la lista del curso
-        curso.getAlumnosInscritos().remove(alumno);
+     //   curso.getAlumnosInscritos().remove(alumno);
      //   cursoService.saveCurso(curso);
 
         return "Alumno desinscripto del curso con éxito";

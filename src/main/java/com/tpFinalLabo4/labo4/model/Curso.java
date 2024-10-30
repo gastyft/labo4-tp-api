@@ -41,6 +41,9 @@ public class Curso {
     @ManyToMany(mappedBy = "cursosInscritos")
     @JsonIgnore
     private Set<Alumno> alumnosInscritos = new HashSet<>();
+
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

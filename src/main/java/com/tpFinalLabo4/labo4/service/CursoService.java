@@ -40,8 +40,8 @@ public class CursoService implements ICursoService {
     @Override
     public Curso findById (Long id){
         Curso curso = cursoRepository.findById(id).orElse(null);
-        return curso;
 
+        return curso;
     }
     @Override
     public String saveCurso(Curso curso, Long profesorId) {

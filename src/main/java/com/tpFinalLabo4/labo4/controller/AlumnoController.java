@@ -2,9 +2,15 @@ package com.tpFinalLabo4.labo4.controller;
 
 
 import com.tpFinalLabo4.labo4.model.Alumno;
+import com.tpFinalLabo4.labo4.model.AlumnoClase;
+import com.tpFinalLabo4.labo4.model.Clase;
+import com.tpFinalLabo4.labo4.model.Curso;
 import com.tpFinalLabo4.labo4.service.IAlumnoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 
 @RestController
@@ -15,27 +21,27 @@ public class AlumnoController {
     @Autowired
     private IAlumnoService interAlumno;
 
-    @GetMapping("/get-alumno-list")
+    @GetMapping
     public List<Alumno> getAlumno() {
         return interAlumno.getAlumno();
     }
 
 
-    @PostMapping("/crear")
-    public String createClase(@RequestBody Alumno alumno) {
+    @PostMapping
+    public String createAlumno(@RequestBody Alumno alumno) {
         interAlumno.saveAlumno(alumno);
         return "El alumno fue guardado correctamente";
     }
 
-    @DeleteMapping("/borrar/{id}") //TODO Preguntar si meto exceptions y que sugerencia Ver tema de listas en models!
-    public String deleteClase(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public String deleteAlumno(@PathVariable Long id) {
         interAlumno.deleteAlumno(id);
         return "El alumno fue eliminado correctamente";
     }
 
 
-    @PutMapping("/editar/{id}")
-    public Alumno editClase(@PathVariable Long id,
+    @PutMapping("/{id}")
+    public Alumno editAlumno(@PathVariable Long id,
                            @RequestParam("nombre") String nuevoNombre,
                            @RequestParam("apellido") String nuevoApellido,
                            @RequestParam("email") String nuevoEmail,
@@ -53,19 +59,39 @@ public class AlumnoController {
     }
 
 
-    @GetMapping("/traer/{id}")
+    @GetMapping("/{id}")
     public Alumno findById(@PathVariable Long id) {
-        return interAlumno.findById(id);
+        Alumno alumno = interAlumno.findById(id);
+        if (alumno == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Curso no encontrado");
+        }
+        return alumno;
     }
-    @DeleteMapping("/desinscribir/{alumnoId}/{cursoId}")
+    @DeleteMapping("/{alumnoId}/desinscribir/{cursoId}")
     public String desinscribirAlumnoDeCurso(@PathVariable Long alumnoId, @PathVariable Long cursoId) {
         return interAlumno.desinscribirAlumnoDeCurso(alumnoId, cursoId);
     }
 
-    @PostMapping("/inscribir/{alumnoId}/{cursoId}")
+    @PostMapping("/{alumnoId}/inscribir/{cursoId}")
     public String inscribirAlumnoEnCurso(@PathVariable Long alumnoId, @PathVariable Long cursoId) {
         return interAlumno.inscribirAlumnoEnCurso(alumnoId, cursoId);
     }
+
+
+    //PARA CLASES VISTAS
+    /*
+    @PostMapping("{alumnoId}/visto/{claseId}")
+    public String claseVistas(@PathVariable Long alumnoId, @PathVariable Long claseId){
+
+        return interAlumno.claseVista(alumnoId, claseId);
+    }
+    @GetMapping("{alumnoId}/vistos")
+    public List<AlumnoClase> clasesVistas(@PathVariable Long alumnoId){
+
+        return interAlumno.clasesVistasxIdAlumno(alumnoId);
+    }
+    */
+
 }
 
 

@@ -4,7 +4,9 @@ package com.tpFinalLabo4.labo4.controller;
 import com.tpFinalLabo4.labo4.model.Profesor;
 import com.tpFinalLabo4.labo4.service.IProfesorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -17,27 +19,27 @@ public class ProfesorController {
     @Autowired
     private IProfesorService interProfesor;
 
-    @GetMapping("/get-profesor-list")
-    public List<Profesor> getAlumno() {
+    @GetMapping
+    public List<Profesor> getProfesores() {
         return interProfesor.getProfesor();
     }
 
 
-    @PostMapping("/crear")
-    public String createClase(@RequestBody Profesor profesor) {
+    @PostMapping
+    public String createProfesor(@RequestBody Profesor profesor) {
         interProfesor.saveProfesor(profesor);
         return "El profesor fue guardado correctamente";
     }
 
-    @DeleteMapping("/borrar/{id}")
-    public String deleteClase(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public String deleteProfesor(@PathVariable Long id) {
         interProfesor.deleteProfesor(id);
         return "El profesor fue eliminada correctamente";
     }
 
 
-    @PutMapping("/editar/{id}") //puede ser con el ID "/personas/editar/{id}"
-    public Profesor editClase(@PathVariable Long id,
+    @PutMapping("/{id}") //puede ser con el ID "/personas/editar/{id}"
+    public Profesor editProfesor(@PathVariable Long id,
                               @RequestParam("nombre") String nuevoNombre,
                               @RequestParam("apellido") String nuevoApellido,
                               @RequestParam("email") String nuevoEmail,
@@ -55,10 +57,13 @@ public class ProfesorController {
     }
 
 
-    @GetMapping("/traer/{id}")
+    @GetMapping("/{id}")
     public Profesor findById(@PathVariable Long id) {
-        return interProfesor.findById(id);
-    }
 
-    
-}
+        Profesor profesor = interProfesor.findById(id);
+        if (profesor == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Curso no encontrado");
+        }
+        return profesor;
+    }
+    }

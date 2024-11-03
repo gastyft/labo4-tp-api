@@ -2,10 +2,13 @@ package com.tpFinalLabo4.labo4.service;
 
 import com.tpFinalLabo4.labo4.model.Alumno;
 
+import com.tpFinalLabo4.labo4.model.AlumnoClase;
+import com.tpFinalLabo4.labo4.model.Clase;
 import com.tpFinalLabo4.labo4.model.Curso;
 import com.tpFinalLabo4.labo4.repository.RepositoryAlumno;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,6 +21,9 @@ public class AlumnoService implements  IAlumnoService{
     private RepositoryAlumno alumnoRepository;
     @Autowired
     private  ICursoService cursoService;
+    @Autowired
+    private IClaseService claseService;
+
     @Override
     public List<Alumno> getAlumno (){
         List<Alumno> listaAlumno = alumnoRepository.findAll();
@@ -31,9 +37,13 @@ public class AlumnoService implements  IAlumnoService{
     }
 
     @Override
-    public void deleteAlumno(Long id){
-        alumnoRepository.deleteById(id);
-
+    public void deleteAlumno(Long id) {
+        try {
+            alumnoRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            // Aquí puedes manejar la excepción, como registrar el error o lanzar una nueva excepción con un mensaje.
+            throw new RuntimeException("Alumno no encontrado con id: " + id);
+        }
     }
 
     @Override
@@ -47,10 +57,12 @@ public class AlumnoService implements  IAlumnoService{
         Alumno alumno = alumnoRepository.findById(alumnoId).orElseThrow(() -> new RuntimeException("Alumno no encontrado"));
         Curso curso = cursoService.findById(cursoId);
 
-        alumno.getCursosInscritos().add(curso);
-
-        alumnoRepository.save(alumno); // Guarda la relación
-        return "Alumno inscripto en el curso con éxito";
+        if(curso !=null && alumno!= null) {
+            alumno.getCursosInscritos().add(curso);
+            alumnoRepository.save(alumno); // Guarda la relación
+            return "Alumno inscripto en el curso con éxito";
+        }
+        else return "No se pudo inscribir el alumno";
     }
     @Override
     public String desinscribirAlumnoDeCurso(Long alumnoId, Long cursoId) {
@@ -76,6 +88,30 @@ public class AlumnoService implements  IAlumnoService{
 
         return "Alumno desinscripto del curso con éxito";
     }
+    /* @Override
+    public String claseVista(Long alumnoId, Long claseId){
+        Alumno alumno = alumnoRepository.findById(alumnoId)
+                .orElseThrow(() -> new RuntimeException("Alumno no encontrado"));
+        Clase clase = claseService.findById(claseId);
+        if(alumno !=null && clase != null) {
+
+
+            return "clase vista agregada";
+        }
+        else
+            return "Error al guardar la clase vista";
+    }
+    @Override
+    public List<AlumnoClase> clasesVistasxIdAlumno(Long alumnoId){
+        Alumno alumno = alumnoRepository.findById(alumnoId)
+                .orElseThrow(() -> new RuntimeException("Alumno no encontrado"));
+        List<AlumnoClase> clasesVistas = alumno.getClasesVistas();
+
+                if(alumno!=null) return clasesVistas;
+                else
+                    return clasesVistas;
+    }
+*/
 }
 
 

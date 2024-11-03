@@ -4,7 +4,9 @@ package com.tpFinalLabo4.labo4.controller;
 import com.tpFinalLabo4.labo4.model.Curso;
 import com.tpFinalLabo4.labo4.service.ICursoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -15,19 +17,19 @@ public class CursoController {
     @Autowired
     private ICursoService interCursos;
 
-    @GetMapping("/get-curso-list")
+    @GetMapping
     public List<Curso> getCursos() {
         return interCursos.getCurso();
     }
 
 
-    @PostMapping("/crear/{profesorId}")
+    @PostMapping("/{profesorId}")
     public String createCurso(@RequestBody Curso curso, @PathVariable Long profesorId) {
         return interCursos.saveCurso(curso, profesorId);
     }
 
 
-    @DeleteMapping("/borrar/{id}")
+    @DeleteMapping("/{id}")
     public String deleteCurso(@PathVariable Long id) {
 
         interCursos.deleteCurso(id);
@@ -35,7 +37,7 @@ public class CursoController {
     }
 
 
-    @PutMapping("/editar/{id}")
+    @PutMapping("/{id}")
     public Curso editCurso(@PathVariable Long id,
                            @RequestParam("titulo") String nuevoTitulo,
                            @RequestParam("descripcion") String nuevaDescripcion) {
@@ -55,13 +57,14 @@ public class CursoController {
 
 
 
-    @GetMapping("/traer/{id}")
-
+    @GetMapping("/{id}")
     public Curso findCurso(@PathVariable Long id) {
-        return interCursos.findById(id);
-
+        Curso curso = interCursos.findById(id);
+        if (curso == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Curso no encontrado");
+        }
+        return curso;
+    }
     }
 
 
-
-}

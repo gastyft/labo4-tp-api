@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.HashSet;
 import java.util.List;
@@ -30,16 +31,19 @@ public class Curso {
 
     @ManyToOne
     @JoinColumn(name = "profesor_id")
-    @JsonIgnore
+  @JsonIgnore
+    @Lazy
     private Profesor profesor;
 
 
-    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.DETACH, orphanRemoval = true,fetch = FetchType.LAZY)
+    @Lazy
     private Set<Clase> clases;
 
 
-    @ManyToMany(mappedBy = "cursosInscritos")
-    @JsonIgnore
+    @ManyToMany(mappedBy = "cursosInscritos",fetch =FetchType.LAZY)
+   @JsonIgnore //TODO sacar los json ignore
+    @Lazy
     private Set<Alumno> alumnosInscritos = new HashSet<>();
 
 

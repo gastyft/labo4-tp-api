@@ -11,6 +11,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -25,24 +27,25 @@ public class Clase {
     private String title;
     private String descripcion;
     private String url;
-    private String thumbnailUrl="";
-    boolean isVisto=false;
+
 
     @ManyToOne
     @JoinColumn(name = "curso_id")
     @JsonIgnore
     private Curso curso;
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "clase", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AlumnoClase> alumnos = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Clase clase)) return false;
-        return isVisto() == clase.isVisto() && Objects.equals(getId(), clase.getId()) && Objects.equals(getTitle(), clase.getTitle()) && Objects.equals(getDescripcion(), clase.getDescripcion()) && Objects.equals(getUrl(), clase.getUrl()) && Objects.equals(getThumbnailUrl(), clase.getThumbnailUrl()) && Objects.equals(getCurso(), clase.getCurso());
+        return   Objects.equals(getId(), clase.getId()) && Objects.equals(getTitle(), clase.getTitle()) && Objects.equals(getDescripcion(), clase.getDescripcion()) && Objects.equals(getUrl(), clase.getUrl()) && Objects.equals(getCurso(), clase.getCurso());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getDescripcion(), getUrl(), getThumbnailUrl(), isVisto(), getCurso());
+        return Objects.hash(getId(), getTitle(), getDescripcion(), getUrl(),   getCurso());
     }
 }

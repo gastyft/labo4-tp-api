@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.*;
 
@@ -24,11 +25,12 @@ public class Profesor {
     private String email;
     private int edad;
 
+    @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    private Set<Curso> cursosQueDicta = new HashSet<>();
+
+
   //  @ElementCollection
 
-    @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, orphanRemoval = true)
-
-    private Set<Curso> cursosQueDicta = new HashSet<>();
 
     //private List<Long> cursosQueDicta;
     // Usar SEts para las listas que no se repitan por ser unicas

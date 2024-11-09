@@ -25,7 +25,7 @@ public class AlumnoClaseService {
     private RepositoryClase claseRepository;
 
     // Marcar una clase como vista por un alumno
-    public void marcarClaseComoVista(Long alumnoId, Long claseId) {
+    public String marcarClaseComoVista(Long alumnoId, Long claseId) {
         Optional<Alumno> alumno = alumnoRepository.findById(alumnoId);
         Optional<Clase> clase = claseRepository.findById(claseId);
 
@@ -39,8 +39,9 @@ public class AlumnoClaseService {
 
 
             alumnoClaseRepository.save(alumnoClase);
+            return "Guardado";
         } else {
-            throw new RuntimeException("Alumno o Clase no encontrados");
+             throw new RuntimeException("Alumno o Clase no encontrados");
         }
     }
 

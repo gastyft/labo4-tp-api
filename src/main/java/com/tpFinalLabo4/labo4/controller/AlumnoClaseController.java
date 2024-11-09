@@ -15,11 +15,11 @@ public class AlumnoClaseController {
     private AlumnoClaseService alumnoClaseService;
 
     // Endpoint para marcar una clase como vista
-    @PostMapping("/marcar-visto")
-    public void marcarClaseComoVista(
+    @PostMapping("{alumnoId}/marcar-visto/{claseId}")
+    public String marcarClaseComoVista(
              @PathVariable Long alumnoId,
              @PathVariable Long claseId) {
-        alumnoClaseService.marcarClaseComoVista(alumnoId, claseId);
+     return alumnoClaseService.marcarClaseComoVista(alumnoId, claseId);
     }
 
     // Endpoint para obtener las clases vistas de un alumno

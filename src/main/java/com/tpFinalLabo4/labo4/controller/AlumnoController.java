@@ -8,6 +8,7 @@ import com.tpFinalLabo4.labo4.model.Curso;
 import com.tpFinalLabo4.labo4.service.IAlumnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -73,8 +74,17 @@ public class AlumnoController {
     }
 
     @PostMapping("/{alumnoId}/inscribir/{cursoId}")
-    public String inscribirAlumnoEnCurso(@PathVariable Long alumnoId, @PathVariable Long cursoId) {
-        return interAlumno.inscribirAlumnoEnCurso(alumnoId, cursoId);
+    public ResponseEntity<String> inscribirAlumnoEnCurso(@PathVariable Long alumnoId, @PathVariable Long cursoId) {
+        try {
+            String resultado = interAlumno.inscribirAlumnoEnCurso(alumnoId, cursoId);
+            if (resultado.equals("Alumno inscripto en el curso con éxito")) {
+                return ResponseEntity.ok("Alumno inscripto correctamente");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo inscribir el alumno");
+            }
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
 

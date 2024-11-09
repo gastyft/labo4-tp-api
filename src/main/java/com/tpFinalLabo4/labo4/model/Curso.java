@@ -11,10 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.annotation.Lazy;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 
 @Entity
@@ -38,13 +35,13 @@ public class Curso {
 
     @OneToMany(mappedBy = "curso", cascade = CascadeType.DETACH, orphanRemoval = true,fetch = FetchType.LAZY)
     @Lazy
-    private Set<Clase> clases;
+    private List<Clase> clases;
 
 
     @ManyToMany(mappedBy = "cursosInscritos",fetch =FetchType.LAZY)
-   @JsonIgnore //TODO sacar los json ignore
+   @JsonIgnore
     @Lazy
-    private Set<Alumno> alumnosInscritos = new HashSet<>();
+    private List<Alumno> alumnosInscritos = new ArrayList<>();
 
 
 

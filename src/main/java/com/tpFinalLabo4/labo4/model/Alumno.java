@@ -31,7 +31,7 @@ public class Alumno {
             joinColumns = @JoinColumn(name = "alumno_id"),
             inverseJoinColumns = @JoinColumn(name = "curso_id")  
     )
-    private Set<Curso> cursosInscritos = new HashSet<>();
+    private List<Curso> cursosInscritos = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL, orphanRemoval = true)

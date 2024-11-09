@@ -26,7 +26,7 @@ public class Profesor {
     private int edad;
 
     @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
-    private Set<Curso> cursosQueDicta = new HashSet<>();
+    private List<Curso> cursosQueDicta = new ArrayList<>();
 
 
   //  @ElementCollection

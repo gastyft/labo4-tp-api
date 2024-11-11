@@ -5,41 +5,41 @@ package com.tpFinalLabo4.labo4.security.entity;
 
 import java.util.HashSet;
 import java.util.Set;
-import jakarta.persistence.Column;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+import com.tpFinalLabo4.labo4.model.Alumno;
+import com.tpFinalLabo4.labo4.model.Profesor;
+import jakarta.persistence.*;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotNull;
 
 
 @Entity
 public class Usuario {
-    
-    
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotNull
     private String nombre;
     @NotNull
-    @Column (unique = true)
+    @Column(unique = true)
     private String nombreUsuario;
     @NotNull
     private String email;
     @NotNull
     private String password;
     @NotNull
-    @ManyToMany(fetch= FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "usuario_id"),
-    inverseJoinColumns = @JoinColumn (name = "rol_id"))
-    private Set <Rol> roles = new HashSet<>();  
+            inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    private Set<Rol> roles = new HashSet<>();
+
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private Alumno alumno;
+
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private Profesor profesor;
 
     public Usuario() {
     }
@@ -97,6 +97,24 @@ public class Usuario {
 
     public void setRoles(Set<Rol> roles) {
         this.roles = roles;
+    }
+
+
+    public Alumno getAlumno() {
+        return alumno;
+    }
+
+    public void setAlumno(Alumno alumno) {
+        this.alumno = alumno;
+    }
+
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
+
     }
 }
 

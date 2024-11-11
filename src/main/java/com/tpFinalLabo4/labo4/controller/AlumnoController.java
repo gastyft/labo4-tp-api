@@ -16,7 +16,6 @@ import java.util.List;
 @RequestMapping("/alumno")
 public class AlumnoController {
 
-
     @Autowired
     private IAlumnoService interAlumno;
 

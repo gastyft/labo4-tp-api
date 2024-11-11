@@ -2,9 +2,7 @@ package com.tpFinalLabo4.labo4.controller;
 
 
 import com.tpFinalLabo4.labo4.model.Alumno;
-import com.tpFinalLabo4.labo4.model.AlumnoClase;
-import com.tpFinalLabo4.labo4.model.Clase;
-import com.tpFinalLabo4.labo4.model.Curso;
+
 import com.tpFinalLabo4.labo4.service.IAlumnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -91,19 +89,7 @@ public class AlumnoController {
     }
 
 
-    //PARA CLASES VISTAS
-    /*
-    @PostMapping("{alumnoId}/visto/{claseId}")
-    public String claseVistas(@PathVariable Long alumnoId, @PathVariable Long claseId){
 
-        return interAlumno.claseVista(alumnoId, claseId);
-    }
-    @GetMapping("{alumnoId}/vistos")
-    public List<AlumnoClase> clasesVistas(@PathVariable Long alumnoId){
-
-        return interAlumno.clasesVistasxIdAlumno(alumnoId);
-    }
-    */
 
 }
 

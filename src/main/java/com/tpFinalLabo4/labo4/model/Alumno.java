@@ -4,6 +4,7 @@ package com.tpFinalLabo4.labo4.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.tpFinalLabo4.labo4.security.entity.Usuario;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,4 +37,32 @@ public class Alumno {
     @JsonIgnore
     @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AlumnoClase> clasesVistas = new ArrayList<>();
+
+
+    @OneToOne
+    @JsonIgnore
+    @Lazy
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+    public Alumno( ){}
+
+    public Alumno(Usuario usuario) {
+        this.nombre = usuario.getNombre();
+        this.apellido = usuario.getNombreUsuario();
+        this.email = usuario.getEmail();
+        this.usuario = usuario;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }

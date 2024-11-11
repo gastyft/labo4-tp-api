@@ -79,7 +79,10 @@ public class AlumnoController {
             String resultado = interAlumno.inscribirAlumnoEnCurso(alumnoId, cursoId);
             if (resultado.equals("Alumno inscripto en el curso con éxito")) {
                 return ResponseEntity.ok("Alumno inscripto correctamente");
-            } else {
+            }else if (resultado.equals("El alumno ya está inscrito en este curso.")) {
+                return  ResponseEntity.status(HttpStatus.CONFLICT).body("El alumno ya está inscrito en este curso.");
+            }
+            else {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo inscribir el alumno");
             }
         } catch (RuntimeException e) {

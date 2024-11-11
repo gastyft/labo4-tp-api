@@ -11,6 +11,10 @@ public class NuevoUsuario {
     @NotBlank
     private String nombre;
     @NotBlank
+    private String apellido;
+    @NotBlank
+    private int edad;
+    @NotBlank
     private String nombreUsuario;
     @Email
     private String email;
@@ -18,12 +22,30 @@ public class NuevoUsuario {
     private String password;
     private Set<String> roles = new HashSet<>();
 
+
+
     public String getNombre() {
         return nombre;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
     }
 
     public String getNombreUsuario() {
@@ -57,4 +79,5 @@ public class NuevoUsuario {
     public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
+
 }

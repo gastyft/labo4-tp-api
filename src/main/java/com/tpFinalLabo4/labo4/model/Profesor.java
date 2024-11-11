@@ -3,6 +3,7 @@ package com.tpFinalLabo4.labo4.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.tpFinalLabo4.labo4.security.entity.Usuario;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,15 +29,29 @@ public class Profesor {
     @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List<Curso> cursosQueDicta = new ArrayList<>();
 
+    @OneToOne
+    @JsonIgnore
+    @Lazy
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+    public Profesor( ){}
+    public Profesor(Usuario usuario) {
+        this.nombre = usuario.getNombre();
+        this.apellido = usuario.getNombreUsuario();
+        this.email = usuario.getEmail();
+        this.usuario = usuario;
+    }
+    public Long getId() {
+        return id;
+    }
 
-  //  @ElementCollection
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
-
-    //private List<Long> cursosQueDicta;
-    // Usar SEts para las listas que no se repitan por ser unicas
-    // e ignorar cursos para que en profesor, y alumno ya se traiga los datos directamente
-    //Ver como crear luego de crear un profesor
-
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

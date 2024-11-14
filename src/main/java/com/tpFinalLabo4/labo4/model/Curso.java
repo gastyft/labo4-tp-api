@@ -24,6 +24,7 @@ public class Curso {
     private Long id;
 
     private String titulo;
+    @Column(columnDefinition = "TEXT")
     private String descripcion;
 
     @ManyToOne

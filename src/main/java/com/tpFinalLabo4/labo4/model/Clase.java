@@ -25,7 +25,9 @@ public class Clase {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String descripcion;
+    @Column(columnDefinition = "TEXT")
     private String url;
 
 

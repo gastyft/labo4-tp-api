@@ -74,7 +74,7 @@ public class AlumnoService implements  IAlumnoService{
             alumno.getCursosInscritos().add(curso);
             alumnoRepository.save(alumno); // Guarda la relación
 
-            return "Alumno inscrito en el curso con éxito";
+            return "Alumno inscripto en el curso con éxito";
         } else {
             return "No se pudo inscribir el alumno. Verifique que el curso y el alumno existan.";
         }

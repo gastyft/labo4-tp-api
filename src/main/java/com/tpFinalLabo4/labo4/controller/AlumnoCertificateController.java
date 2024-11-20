@@ -28,7 +28,7 @@ public class AlumnoCertificateController {
         }
 
 
-        @GetMapping("/{alumnoId}/cursos")
+        @GetMapping("/{alumnoId}")
         public ResponseEntity<List<Curso>> obtenerCursosFinalizados(@PathVariable Long alumnoId) {
             try {
                 List<Curso> cursos = alumnoCertificateService.obtenerCursosPorAlumno(alumnoId);

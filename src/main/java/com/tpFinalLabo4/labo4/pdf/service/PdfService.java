@@ -10,15 +10,16 @@ import com.tpFinalLabo4.labo4.pdf.PdfCertificate;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 
 @Service
 public class PdfService {
 
-    public  byte[] generateCertificatePdf(String nombreAlumno, String nombreCurso) {
+    public  byte[] generateCertificatePdf(String nombreAlumno, String nombreCurso, LocalDate date) {
         try {
 
-          return  PdfCertificate.generateCertificate(nombreAlumno,nombreCurso);
+          return  PdfCertificate.generateCertificate(nombreAlumno,nombreCurso,date);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

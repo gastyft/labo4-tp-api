@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+
 
 @RestController
 @RequestMapping("/generate-certificate")
@@ -23,8 +25,8 @@ public class PdfController {
     }
 
     @GetMapping()
-public ResponseEntity<byte[]> generateCertificate(@RequestParam String nombreAlumno, @RequestParam String nombreCurso) {
-    byte[] pdfBytes = pdfService.generateCertificatePdf(nombreAlumno, nombreCurso);
+public ResponseEntity<byte[]> generateCertificate(@RequestParam String nombreAlumno, @RequestParam String nombreCurso, @RequestParam LocalDate date) {
+    byte[] pdfBytes = pdfService.generateCertificatePdf(nombreAlumno, nombreCurso,date);
 
     return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=Certificate_"+nombreCurso+"_"+nombreAlumno+".pdf")

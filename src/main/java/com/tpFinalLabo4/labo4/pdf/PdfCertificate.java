@@ -26,7 +26,7 @@ import java.time.format.DateTimeFormatter;
 
 public class PdfCertificate {
 
-    public static byte[] generateCertificate(String nombreAlumno, String nombreCurso) throws IOException {
+    public static byte[] generateCertificate(String nombreAlumno, String nombreCurso, LocalDate date) throws IOException {
         // ByteArrayOutputStream para almacenar el contenido del PDF
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
@@ -65,7 +65,7 @@ public class PdfCertificate {
         document.add(new Paragraph("ha completado satisfactoriamente el curso: " + nombreCurso)
                 .setFontSize(14).setTextAlignment(TextAlignment.CENTER));
 
-        document.add(new Paragraph("\n\nFecha de emisión: " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+        document.add(new Paragraph("\n\nFecha de emisión: " + date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
                 .setFontSize(12).setTextAlignment(TextAlignment.RIGHT));
         document.add(new Paragraph("\nFirma autorizada: Dec. Fernando Scholtus")
                 .setFontSize(12).setTextAlignment(TextAlignment.RIGHT));

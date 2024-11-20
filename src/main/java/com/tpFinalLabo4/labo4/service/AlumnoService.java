@@ -62,7 +62,7 @@ public class AlumnoService implements  IAlumnoService{
 
         // Validar que el curso y el alumno existan
         if (curso != null && alumno != null) {
-            // Verificar si el alumno ya está inscrito en el curso
+            // Verificar si el alumno ya está inscripto en el curso
             boolean isAlreadyEnrolled = alumno.getCursosInscritos().stream()
                     .anyMatch(c -> c.getId().equals(cursoId));
 
@@ -106,6 +106,10 @@ public class AlumnoService implements  IAlumnoService{
     public Optional<Alumno> getByUsuario(Usuario usuario) {
         return alumnoRepository.findByUsuario(usuario);
     }
+
+
+
+
 }
 
 

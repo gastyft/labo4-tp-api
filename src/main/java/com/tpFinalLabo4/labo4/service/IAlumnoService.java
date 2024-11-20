@@ -21,6 +21,8 @@ public interface IAlumnoService {
 
     public String desinscribirAlumnoDeCurso(Long alumnoId, Long cursoId);
 
+
+
     /*
     public String claseVista(Long alumnoId, Long claseId);
 

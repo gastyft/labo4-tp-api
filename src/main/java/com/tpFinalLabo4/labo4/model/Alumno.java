@@ -45,6 +45,10 @@ public class Alumno {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
+
+
+
+
     public Alumno( ){}
 
     public Alumno(Usuario usuario) {
@@ -65,4 +69,7 @@ public class Alumno {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+
+
 }

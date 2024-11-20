@@ -44,7 +44,10 @@ public class Curso {
     @Lazy
     private List<Alumno> alumnosInscritos = new ArrayList<>();
 
-
+    @ManyToMany(mappedBy = "cursosFinalizados",fetch =FetchType.LAZY)
+    @JsonIgnore
+    @Lazy
+    private List<Alumno> alumnosCertificate = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

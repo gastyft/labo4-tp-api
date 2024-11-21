@@ -52,5 +52,19 @@ public class AlumnoCertificateService implements IAlumnoCertificateService {
     public List<Curso> obtenerCursosPorAlumno(Long alumnoId) {
         return alumnoCertificateRepository.findCursosByAlumnoId(alumnoId);
     }
+
+    @Override
+    public Optional<AlumnoCertificate> obtenerPorAlumnoIdYCursoId(Long alumnoId, Long cursoId) {
+        // Buscar alumno y curso
+        Optional<Alumno> alumno = alumnoRepository.findById(alumnoId);
+        Optional<Curso> curso = cursoRepository.findById(cursoId);
+
+        if (alumno.isPresent() && curso.isPresent()) {
+
+            return alumnoCertificateRepository.findByAlumnoAndCurso(alumno.get(), curso.get());
+        } else {
+            throw new RuntimeException("Alumno o Curso no encontrados.");
+        }
+    }
 }
 
